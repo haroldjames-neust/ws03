@@ -4,7 +4,8 @@ class Router{
     public function registerRoutes($method, $uri, $controller){
         $this->routes[]= [
             'method' => $method,
-            'uri' => $controller
+            'uri' => $uri,
+            'controller' => $controller
         ];
     }
 
@@ -26,7 +27,7 @@ class Router{
 
     public function error($httpCode = 404){
         http_response_code($httpCode);
-        require basePath("error/{$httpCode}");
+        require basePath("controllers/error/{$httpCode}.php");
         exit;
     }
 

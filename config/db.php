@@ -2,7 +2,8 @@
  return[
     'host' => 'localhost',
     'port' => 3306,
-    'dbname' => 'prosple',
+    'dbname' => 'jobseeker',
     'username' => 'sample',
     'password' => '123456'
  ];
+ 

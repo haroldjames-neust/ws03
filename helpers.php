@@ -6,6 +6,9 @@
  * @param string $path
  * @return string
  */
+
+
+
 function basePath($path = '')
 {
     return __DIR__ . '/' . $path;
@@ -17,16 +20,18 @@ function basePath($path = '')
  * @param string $name
  * @return void
  */
-function loadView($name, $data = []) {
-    $viewPath = basePath("views/{$name}.view.php");
+function loadView($name, $data = [])
+{
+    $viewPath = basePath("App/views/{$name}.view.php");
 
     if (file_exists($viewPath)) {
-        extract($data); // 👈 This turns array keys into variables like $listings
+        extract($data);
         require $viewPath;
     } else {
         echo "View '{$name}' not found";
     }
 }
+
 /**
  * Load a partial
  * 
@@ -35,7 +40,7 @@ function loadView($name, $data = []) {
  */
 function loadPartial($name)
 {
-    $partialPath = basePath("views/partials/{$name}.php");
+    $partialPath = basePath("App/views/partials/{$name}.php");
 
     if (file_exists($partialPath)) {
         require $partialPath;
@@ -68,4 +73,8 @@ function inspectAndDie($value)
     echo '<pre>';
     die(var_dump($value));
     echo '</pre>';
+}
+function formatSalary($salary)
+{
+    return '$' . number_format(floatval($salary));
 }

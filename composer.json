@@ -1,0 +1,17 @@
+{
+    "name": "haroldjamesneust/ws03",
+    "description": "Job Seeker Application",
+    "authors": [
+        {
+            "name": "Harold James F. Delgado",
+            "email": "haroldjamesdelgado@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/",
+            "App\\": "App/"
+        }
+    }
+   
+}

@@ -1,7 +1,7 @@
-<?php require basePath('views/partials/head.php'); ?>
-<?php require basePath('views/partials/navbar.php'); ?>
-<?php require basePath('views/partials/showcase-search.php'); ?>
-<?php require basePath('views/partials/top-banner.php'); ?>
+<?php require basePath('App/views/partials/head.php'); ?>
+<?php require basePath('App/views/partials/navbar.php'); ?>
+<?php require basePath('App/views/partials/showcase-search.php'); ?>
+<?php require basePath('App/views/partials/top-banner.php'); ?>
 
 <section>
   <div class="container mx-auto p-4 mt-4">
@@ -54,8 +54,7 @@
       Show All Jobs
     </a>
   </div>
-</section>  <!-- ✅ Fixed: </div> for container added, section properly closed -->
+</section>  
 
-<?php require basePath('views/partials/bottom-banner.php'); ?>
-<?php require basePath('views/partials/footer.php'); ?>
-<!-- ✅ Fixed: </body> and </html> moved into footer.php where they belong -->
+<?php require basePath('App/views/partials/bottom-banner.php'); ?>
+<?php require basePath('App/views/partials/footer.php'); ?>

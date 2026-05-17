@@ -22,23 +22,19 @@
               <li class="mb-2">
                 <strong>Location:</strong> <?= $listing->city ?>, <?= $listing->state ?>
               </li>
-              <li class="mb-2">  <!-- ✅ Fixed: was closed immediately then reopened -->
+              <li class="mb-2">  
                 <strong>Company:</strong> <?= $listing->company ?>
                 <span class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">
-                  <?= $listing->is_remote ? 'Remote' : 'Local' ?>  <!-- ✅ Fixed: now shows readable text -->
+                  <?= $listing->is_remote ? 'Remote' : 'Local' ?>  
                 </span>
               </li>
+              <?php if (!empty($listing->tags)) : ?>
               <li class="mb-2">
                 <strong>Tags:</strong>
-                <?php
-                  $tags = explode(',', $listing->tags);
-                  foreach($tags as $tag) {
-                    echo "<span>" . htmlspecialchars(trim($tag)) . "</span> ";
-                  }
-                ?>
               </li>
+              <?php endif; ?>
             </ul>
-            <a href="/listings/<?= $listing->id ?>"
+            <a href="/listing/<?= $listing->id ?>"
               class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
             >
               Details
@@ -54,7 +50,7 @@
       Show All Jobs
     </a>
   </div>
-</section>  
+</section>   
 
 <?php require basePath('App/views/partials/bottom-banner.php'); ?>
 <?php require basePath('App/views/partials/footer.php'); ?>

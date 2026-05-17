@@ -9,6 +9,7 @@
         </div>
         <p class="text-center text-2xl mb-4">
             <?= $message ?? 'This page is not found' ?>
+            <a class ="block text-center" href="/listings">Go Back To Listings</a>
         </p>
     </div>
 </section>

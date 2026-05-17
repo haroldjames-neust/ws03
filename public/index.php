@@ -1,6 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
 require '../helpers.php';
@@ -12,9 +11,12 @@ $router = new Router();
 
 $routes = require basePath('routes.php');
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$method = $_SERVER['REQUEST_METHOD'];
 
-$router->route($uri, $method);
+$uri = str_replace('/WS03/public', '', $uri);
+$uri = str_replace('/WS03', '', $uri);
+
+
+$router->route($uri);
 
 // if (array_key_exists($uri, $routes)) {
 //     require basePath($routes[$uri]);

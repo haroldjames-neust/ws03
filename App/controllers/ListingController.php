@@ -2,19 +2,21 @@
 namespace App\Controllers;
 
 use Framework\Database;
-class ListingController{
+use Framework\Validation;
 
+class ListingController
+{
     protected $db;
+
     public function __construct()
     {
         $config = require basePath('config/db.php');
-    $this->db = new Database($config);
+        $this->db = new Database($config);
     }
 
     public function index()
     {
         $listings = $this->db->query('SELECT * FROM listings')->fetchAll();
-
         loadView('listings/index', ['listings' => $listings]);
     }
 
@@ -22,14 +24,101 @@ class ListingController{
     {
         loadView('listings/create');
     }
-    public function show()
+
+    public function show($params)
     {
-        $id = $_GET['id'] ?? '';
-        $params = [
-            'id' => $id
-        ];
+        $id = $params['id'] ?? '';
+        $params = ['id' => $id];
+
         $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+
+        if (!$listing) {
+            ErrorController::notFound('Listing not found');
+            return;
+        }
 
         loadView('listings/show', ['listing' => $listing]);
     }
+
+    public function inspectAndDie($value)
+    {
+        echo '<pre>';
+        var_dump($value);
+        echo '</pre>';
+        die();
+    }
+
+    public function store()
+    {
+        $allowedFields = [
+            'title', 'description', 'salary', 'tags', 'company',
+            'address', 'city', 'state', 'phone', 'email',
+            'requirement', 'benefits', 'is_remote'
+        ];
+
+        $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+        $newListingData['user_id'] = 1;
+        $newListingData = array_map('sanitize', $newListingData);
+
+        $errors = [];
+        $requiredFields = ['title', 'description', 'email', 'city', 'state', 'salary'];
+
+        foreach ($requiredFields as $field) {
+            if (empty($newListingData[$field]) || !Validation::string($newListingData[$field], 1)) {
+                $errors[$field] = ucfirst($field) . ' is required';
+            }
+        }
+
+        if (!empty($errors)) {
+            loadView('listings/create', [
+                'errors'  => $errors,
+                'listing' => $newListingData
+            ]);
+            return;
+        }
+
+        $fields = [];
+        $values = [];
+
+        foreach ($newListingData as $field => $value) {
+            $fields[] = $field;
+            if ($value === '') {
+                $newListingData[$field] = null;
+            }
+            $values[] = ':' . $field;
+        }
+
+        $fields = implode(', ', $fields);
+        $values = implode(', ', $values);
+
+        $this->db->query(
+            "INSERT INTO listings ({$fields}) VALUES ({$values})",
+            $newListingData
+        );
+
+        header('Location: /listings');
+        exit();
+    }
+    public function destroy($params)
+    {
+        $id = $params['id'] ?? '';
+
+        $params = ['id' => $id];
+
+        $listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
+
+        if (!$listing) {
+            ErrorController::notFound('Listing not found');
+            return;
+        }
+
+        $this->db->query('DELETE FROM listings WHERE id = :id', $params);
+
+        $_SESSION['success_message'] = 'Listing deleted successfully';
+
+        header('Location: /listings');
+        exit();
+    }
 }
+
+?>

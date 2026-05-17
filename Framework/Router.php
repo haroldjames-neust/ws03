@@ -2,8 +2,6 @@
 namespace Framework;
 use App\Controllers\ErrorController;
 
-use Error;
-
 class Router {
     protected $routes = [];
 
@@ -34,20 +32,45 @@ class Router {
         $this->registerRoutes('DELETE', $uri, $controller);
     }
 
-    
-    
+    public function route($uri) {
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $uriSegments   = explode('/', trim($uri, '/'));
 
-    public function route($uri, $method) {
+        if($requestMethod === 'POST' && isset($_POST['_method'])) {
+            $requestMethod = strtoupper($_POST['_method']);
+        }
+
+
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === $method) {
-                $controller       = 'App\\Controllers\\' . $route['controller'];
-                $controllerMethod = $route['controllerMethod'];
+            $routeSegments = explode('/', trim($route['uri'], '/'));
 
-                $controllerInstance = new $controller();
-                $controllerInstance->$controllerMethod();
-                return;
+            if (count($uriSegments) === count($routeSegments) && strtoupper($route['method']) === $requestMethod) {
+                $params = [];
+                $match = true;
+
+                for ($i = 0; $i < count($uriSegments); $i++) {
+                    if (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
+                        // Dynamic segment like {id} — capture it
+                        $params[$matches[1]] = $uriSegments[$i];
+                    } elseif ($routeSegments[$i] !== $uriSegments[$i]) {
+                        // Static segment doesn't match
+                        $match = false;
+                        break;
+                    }
+                }
+
+                if ($match) {
+                    $controller       = 'App\\Controllers\\' . $route['controller'];
+                    $controllerMethod = $route['controllerMethod'];
+
+                    $controllerInstance = new $controller();
+                    $controllerInstance->$controllerMethod($params);
+                    return;
+                }
             }
         }
-        ErrorController::notFound();
+
+        $errorController = new ErrorController();
+        $errorController->notFound();
     }
 }

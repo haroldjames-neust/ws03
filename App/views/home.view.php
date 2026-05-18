@@ -1,7 +1,7 @@
-<?php require basePath('App/views/partials/head.php'); ?>
-<?php require basePath('App/views/partials/navbar.php'); ?>
-<?php require basePath('App/views/partials/showcase-search.php'); ?>
-<?php require basePath('App/views/partials/top-banner.php'); ?>
+<?php loadPartial('head'); ?>
+<?php loadPartial('navbar'); ?>
+<?php loadPartial('showcase-search'); ?>
+<?php loadPartial('top-banner'); ?>
 
 <section>
   <div class="container mx-auto p-4 mt-4">
@@ -34,7 +34,7 @@
               </li>
               <?php endif; ?>
             </ul>
-            <a href="/listing/<?= $listing->id ?>"
+            <a href="/listings/<?= $listing->id ?>"
               class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
             >
               Details
@@ -52,5 +52,5 @@
   </div>
 </section>   
 
-<?php require basePath('App/views/partials/bottom-banner.php'); ?>
-<?php require basePath('App/views/partials/footer.php'); ?>
+<?php loadPartial('bottom-banner'); ?>
+

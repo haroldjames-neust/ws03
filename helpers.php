@@ -38,11 +38,12 @@ function loadView($name, $data = [])
  * @param string $name
  * @return void
  */
-function loadPartial($name)
+function loadPartial($name, $data = [])
 {
     $partialPath = basePath("App/views/partials/{$name}.php");
 
     if (file_exists($partialPath)) {
+        extract($data);
         require $partialPath;
     } else {
         echo "Partial '{$name}' not found";
@@ -82,7 +83,7 @@ function sanitize($dirty)
 {
     return filter_var($dirty, FILTER_SANITIZE_SPECIAL_CHARS);
 }
-function riderect($url)
+function redirect($url)
 {
     header('Location: ' . $url);
     exit;

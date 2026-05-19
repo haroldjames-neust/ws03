@@ -1,7 +1,7 @@
 /* ============================================================
    JOBEES — CUSTOM STYLESHEET
    Pangalan ng Student: Harold James F
-   Theme Name:          Bloom
+   Theme Name:          Bloom (Punchy Edition)
    ============================================================ */
 
 /* --- Google Fonts Import ---
@@ -12,21 +12,21 @@
 
 
 /* ----------------------------------------------------------------
-   SECTION 1: MGA KULAY (Colors)
+   SECTION 1: MGA KULAY (Colors) — PUNCHY VERSION
    ---------------------------------------------------------------- */
 
 :root {
-  --color-header:       #9cc5f3;   /* Header at navigation bar — soft morning sky */
-  --color-accent:       #89cee9;   /* "Post a Job" button at mga highlight — open-sky blue */
-  --color-page-bg:      #F7FBFF;   /* Background ng buong page — barely-there sky tint */
-  --color-card-bg:      #FFFFFF;   /* Background ng mga card/box — pure clean white */
-  --color-heading:      #1B4F6A;   /* Kulay ng mga title at heading — deep calm ocean */
-  --color-body-text:    #4A6274;   /* Regular na body text — soft slate */
-  --color-link:         #3A8FBA;   /* Mga clickable na links — sky blue */
-  --color-tag-bg:       #E8F8ED;   /* Background ng mga tag/badge — soft mint */
-  --color-tag-text:     #2A7A4B;   /* Text ng mga tag/badge — gentle forest green */
-  --color-footer:       #D8EEF8;   /* Footer background — pale sky */
-  --showcase-overlay:   rgba(27, 79, 106, 0.45); /* Hero banner overlay */
+  --color-header:       #0077CC;   /* Header at navigation bar — bold cobalt blue */
+  --color-accent:       #FF6B00;   /* "Post a Job" button at mga highlight — vivid orange */
+  --color-page-bg:      #EFF6FF;   /* Background ng buong page — crisp sky white */
+  --color-card-bg:      #FFFFFF;   /* Background ng mga card/box — pure white */
+  --color-heading:      #002D62;   /* Kulay ng mga title at heading — deep navy */
+  --color-body-text:    #2C3E50;   /* Regular na body text — strong dark slate */
+  --color-link:         #0077CC;   /* Mga clickable na links — punchy cobalt */
+  --color-tag-bg:       #FFF0E0;   /* Background ng mga tag/badge — warm amber tint */
+  --color-tag-text:     #C45000;   /* Text ng mga tag/badge — deep burnt orange */
+  --color-footer:       #002D62;   /* Footer background — deep navy */
+  --showcase-overlay:   rgba(0, 45, 98, 0.55); /* Hero banner overlay */
 }
 
 
@@ -46,7 +46,11 @@
 
 :root {
   --border-radius: 14px;
-  --card-shadow:   0 2px 20px rgba(75, 163, 199, 0.10), 0 1px 4px rgba(0,0,0,0.04);
+  --card-shadow:   0 4px 24px rgba(0, 119, 204, 0.13), 0 1px 4px rgba(0,0,0,0.07);
+
+  /* Fixed card dimensions */
+  --card-width:    320px;
+  --card-height:   220px;
 }
 
 
@@ -104,10 +108,23 @@ header {
   background-color: var(--color-accent) !important;
 }
 
+/* ----------------------------------------------------------------
+   FIXED SIZE CARDS
+   ---------------------------------------------------------------- */
+
 .bg-white {
   background-color: var(--color-card-bg) !important;
   border-radius: var(--border-radius) !important;
   box-shadow: var(--card-shadow) !important;
+
+  /* Fixed card size */
+  width:     var(--card-width) !important;
+  min-width: var(--card-width) !important;
+  max-width: var(--card-width) !important;
+  height:    var(--card-height) !important;
+  min-height: var(--card-height) !important;
+  max-height: var(--card-height) !important;
+  overflow:  hidden !important;
 }
 
 .bg-indigo-100 {
@@ -139,6 +156,13 @@ button,
 footer,
 .bg-indigo-900 {
   background-color: var(--color-footer) !important;
+  color: #FFFFFF !important;
+}
+
+/* Footer text contrast fix */
+footer *,
+.bg-indigo-900 * {
+  color: #E0EEFF !important;
 }
 
 .bg-gray-100 {
@@ -156,46 +180,46 @@ a:hover {
   opacity: 0.80;
 }
 
-/* Soft sky glow on accent buttons */
+/* Bold punch on accent buttons */
 .bg-yellow-500:hover,
 .bg-blue-500:hover {
-  box-shadow: 0 0 20px rgba(75, 163, 199, 0.35) !important;
+  box-shadow: 0 0 24px rgba(255, 107, 0, 0.45) !important;
   transition: box-shadow 0.2s ease;
 }
 
-/* Input fields — light themed with sky tones */
+/* Input fields — crisp with navy focus */
 input, select, textarea {
   background-color: #FFFFFF !important;
-  border-color: #C5DFEE !important;
+  border-color: #B0CCE8 !important;
   color: var(--color-heading) !important;
   border-radius: var(--border-radius) !important;
 }
 
 input::placeholder, textarea::placeholder {
-  color: #93B5C6 !important;
+  color: #7FA8C8 !important;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: var(--color-accent) !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(75, 163, 199, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.18) !important;
 }
 
 /* Success badge */
-.bg-green-100 { background-color: #D4F4E0 !important; }
-.text-green-800 { color: #1E6B40 !important; }
+.bg-green-100 { background-color: #C8F5DC !important; }
+.text-green-800 { color: #0F5C30 !important; }
 
-/* Card hover lift */
+/* Card hover lift — fixed size maintained */
 .bg-white:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(75, 163, 199, 0.16) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0, 119, 204, 0.20) !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hopeful tri-color top border on cards — sky meets meadow meets sunlight */
+/* Punchy dual-tone top border on cards — cobalt meets orange */
 .bg-white {
   border-top: 5px solid transparent !important;
-  border-image: linear-gradient(90deg, #D4F4E0 0%, #CCE9FA 50%, #FFF3C4 100%) 1 !important;
+  border-image: linear-gradient(90deg, #0077CC 0%, #FF6B00 100%) 1 !important;
 }
 
 /* Gentle fade-in animation on page load */
@@ -215,7 +239,7 @@ body {
   animation: bloomFadeIn 0.7s ease both;
 }
 
-/* Soft floating background glow for warmth and depth */
+/* Punchy radial background glow — cobalt + orange warmth */
 body::before {
   content: '';
   position: fixed;
@@ -224,7 +248,7 @@ body::before {
   transform: translateX(-50%);
   width: 70vw;
   height: 50vh;
-  background: radial-gradient(ellipse at center, rgba(204, 233, 250, 0.50) 0%, rgba(212, 244, 224, 0.25) 55%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(0, 119, 204, 0.12) 0%, rgba(255, 107, 0, 0.06) 55%, transparent 75%);
   pointer-events: none;
   z-index: 0;
   animation: drift 10s ease-in-out infinite;
